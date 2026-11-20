@@ -6,9 +6,9 @@
 <title>Tournament - PlayZyro</title>
 <meta name="description" content=" PlayZyro tournament details and apply. ">
 <link rel="icon" href=" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23151517'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='900' fill='%232f81f7' text-anchor='middle' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E ">
-<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20k">
+<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20l">
 <script>window.PZ_VARIANT = 'v10';</script>
-<script src="assets/js/app.js?v=2026-11-20k"></script>
+<script src="assets/js/app.js?v=2026-11-20l"></script>
 </head>
 <body>
 <header class="site">
@@ -80,7 +80,7 @@ else{
  +(t.timeText?'<tr><td class="muted">Time</td><td>'+PZ.esc(t.timeText)+'</td></tr>':'')
  +'<tr><td class="muted">Mode</td><td>'+PZ.esc(t.mode)+'</td></tr>'
  +'<tr><td class="muted">Prize</td><td>To be confirmed</td></tr>'
- +'<tr><td class="muted">Squads applied</td><td>'+applied+'</td></tr>'
+ +'<tr><td class="muted">Squads applied</td><td id="d-applied">'+applied+'</td></tr>'
  +'</tbody></table>';
  var u=PZ.session();
  if(!u){box.innerHTML='<p class="muted">Log in or sign up, then create or join a squad to apply.</p><p style="margin-top:12px"><a class="btn block" href="auth.html">Log in / Sign up</a></p>';}
@@ -92,7 +92,7 @@ else{
      document.getElementById('apply-btn').addEventListener('click',function(){
        var r=PZ.apply(s,t.id), e=document.getElementById('apply-err'), o=document.getElementById('apply-ok');
        if(r.error){e.textContent=r.error;e.style.display='block';o.style.display='none';}
-       else{e.style.display='none';o.textContent='Application sent. The admin will select and assign teams; your assignment will show on your dashboard.';o.style.display='block';PZ.toast('Application sent');setTimeout(function(){location.reload();},900);}
+       else{e.style.display='none';o.textContent='Application sent. The admin will select and assign teams; your assignment will show on your dashboard.';o.style.display='block';PZ.toast('Application sent');var da=document.getElementById('d-applied');if(da){da.textContent=PZ.appliedSquadIds(t.id).length;}}
      });
    }
  }
