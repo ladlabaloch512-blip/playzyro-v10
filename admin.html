@@ -6,9 +6,9 @@
 <title>Admin Panel - PlayZyro</title>
 <meta name="description" content=" PlayZyro admin panel: users, squads, tournaments, events, team assignment and room publishing. ">
 <link rel="icon" href=" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23151517'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='900' fill='%232f81f7' text-anchor='middle' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E ">
-<link rel="stylesheet" href="assets/css/style.css?v=2026-11-19b">
+<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20a">
 <script>window.PZ_VARIANT = 'v10';</script>
-<script src="assets/js/app.js?v=2026-11-19b"></script>
+<script src="assets/js/app.js?v=2026-11-20a"></script>
 </head>
 <body>
 <header class="site">
@@ -67,7 +67,8 @@
 <div>
 <div class="panel" id="panel-users">
 <div class="panelhead"><h3>Users</h3><input type="search" id="u-q" placeholder="Search" aria-label="Search users"></div>
-<div class="tablewrap" style="border:none"><table style="min-width:0">
+<p class="scrollhint">Scroll sideways to see all columns</p>
+<div class="tablewrap" style="border:none"><table>
 <thead><tr><th>Username</th><th>ID</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
 <tbody id="users-rows"></tbody>
 </table></div>
@@ -75,7 +76,8 @@
 </div>
 <div class="panel" style="margin-top:18px" id="panel-squads">
 <div class="panelhead"><h3>Squads</h3><input type="search" id="s-q" placeholder="Search" aria-label="Search squads"></div>
-<div class="tablewrap" style="border:none"><table style="min-width:0">
+<p class="scrollhint">Scroll sideways to see all columns</p>
+<div class="tablewrap" style="border:none"><table>
 <thead><tr><th>Squad Name</th><th>Leader</th><th>Players</th><th>Status</th><th>Actions</th></tr></thead>
 <tbody id="squads-rows"></tbody>
 </table></div>
@@ -85,10 +87,10 @@
 <div class="panel" style="margin-top:18px">
 <h3>Media Slots</h3>
 <div class="grid3" style="grid-template-columns:1fr 1fr">
-<div class="ph" style="min-height:90px">Poster Placeholder</div>
-<div class="ph" style="min-height:90px">Winner Photo Placeholder</div>
+<div class="ph gridbg" style="min-height:90px">Poster Placeholder</div>
+<div class="photo-ph" style="min-height:90px"><span class="ph-frame"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21.5c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5z"/></svg><span>Winner Photo Placeholder</span></span></div>
 </div>
-<div class="ph" style="min-height:90px;margin-top:12px">Team Photo Placeholder</div>
+<div class="photo-ph" style="min-height:90px;margin-top:12px"><span class="ph-frame"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21.5c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5z"/></svg><span>Team Photo Placeholder</span></span></div>
 </div>
 </div>
 <div>
@@ -251,9 +253,10 @@ else{
 </script>
 <footer class="site">
 <div class="wrap">
-<a class="logo" href="index.html">PLAY<span class="z">Z</span>YRO</a>
-<nav><a href="index.html">Home</a><a href="tournaments.html">Tournaments</a><a href="about.html">About Us</a><a href="terms.html">Terms and Conditions</a></nav>
+<div class="foot-top"><a class="logo" href="index.html">PLAY<span class="z">Z</span>YRO</a>
+<nav><a href="index.html">Home</a><a href="tournaments.html">Tournaments</a><a href="about.html">About Us</a><a href="terms.html">Terms and Conditions</a></nav></div>
 <p class="small muted">Social links: to be provided by the client</p>
+<p class="small muted">Contact email: to be provided by the client</p>
 <p class="demo-note">Demo preview: sample accounts, tournaments and squads labelled Demo or Example are preview data only. Real tournaments, winners, posters and photos are added by the admin / provided by the client.</p>
 <p class="small muted" style="margin-top:10px">playzyro.xyz &nbsp;|&nbsp; &copy; <span id="yr"></span> PlayZyro. All rights reserved.</p>
 </div>

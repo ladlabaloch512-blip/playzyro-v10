@@ -6,9 +6,9 @@
 <title>Tournament - PlayZyro</title>
 <meta name="description" content=" PlayZyro tournament details and apply. ">
 <link rel="icon" href=" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23151517'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='900' fill='%232f81f7' text-anchor='middle' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E ">
-<link rel="stylesheet" href="assets/css/style.css?v=2026-11-19b">
+<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20a">
 <script>window.PZ_VARIANT = 'v10';</script>
-<script src="assets/js/app.js?v=2026-11-19b"></script>
+<script src="assets/js/app.js?v=2026-11-20a"></script>
 </head>
 <body>
 <header class="site">
@@ -30,7 +30,7 @@
 <div class="pagehead"><span class="crumb">PUBG Community Platform</span><h1 id="t-name">Tournament</h1></div>
 <div class="dash-grid detail">
 <div>
-<div class="ph tall">Poster Placeholder</div>
+<div class="ph tall gridbg">Poster Placeholder</div>
 <div class="panel" style="margin-top:16px">
 <h3 style="text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">Tournament details</h3>
 <p class="muted">Sign up, build your squad, and apply for tournaments. A squad needs at least 4 members to apply. Applying does not guarantee a place - the admin selects and assigns teams.</p>
@@ -44,6 +44,24 @@
 <div class="formok" id="apply-ok"></div>
 </div>
 </div>
+<h2 class="sec">About This Tournament</h2>
+<div class="panel">
+<p class="muted" id="t-about">This tournament is run by the PlayZyro admin for the PlayZyro PUBG community. The status, date, mode and prize shown in the details above are the current details; anything marked To be confirmed is still being finalised.</p>
+</div>
+<h2 class="sec">How to Apply</h2>
+<div class="steps">
+<div class="step"><span class="n">1</span><div><h3>Log in</h3><p>Log in or create your PlayZyro account.</p></div></div>
+<div class="step"><span class="n">2</span><div><h3>Have a squad of 4 or more</h3><p>Create a squad as captain, or join one with the squad's join code. A squad holds 4 to 5 players.</p></div></div>
+<div class="step"><span class="n">3</span><div><h3>Apply</h3><p>Apply from this page. The admin reviews applications and assigns squads, and the Room ID and password are published at match time to assigned squads only.</p></div></div>
+</div>
+<h2 class="sec">Rules</h2>
+<div class="panel"><ul class="ticks">
+<li>A squad holds 4 to 5 players.</li>
+<li>Each player has one active squad in this stage.</li>
+<li>Applications are reviewed by the admin, who selects and assigns squads.</li>
+<li>The Room ID and password are published at match time, to assigned squads only.</li>
+<li>Fair play and respectful conduct, as set out in the <a href="terms.html">Terms and Conditions</a>.</li>
+</ul></div>
 </div>
 <script>
 var t=PZ.db.tournaments.find(function(x){return x.id===PZ.qs('id');});
@@ -52,6 +70,7 @@ if(!t){document.getElementById('t-name').textContent='Tournament not found';box.
 else{
  document.title=t.name+' - PlayZyro';
  document.getElementById('t-name').textContent=t.name;
+ if(t.name.indexOf('(Example)')>-1){document.getElementById('t-about').textContent='This is a demo tournament (Example) shown in the preview, so its details are sample details only. Real tournament details are set by the PlayZyro admin; anything marked To be confirmed is still being finalised.';}
  var applied=PZ.appliedSquadIds(t.id).length;
  document.getElementById('t-meta').innerHTML='<table style="min-width:0"><tbody>'
  +'<tr><td class="muted">Status</td><td><span class="chip blue">'+PZ.esc(t.status)+'</span></td></tr>'
@@ -79,9 +98,10 @@ else{
 </script>
 <footer class="site">
 <div class="wrap">
-<a class="logo" href="index.html">PLAY<span class="z">Z</span>YRO</a>
-<nav><a href="index.html">Home</a><a href="tournaments.html">Tournaments</a><a href="about.html">About Us</a><a href="terms.html">Terms and Conditions</a></nav>
+<div class="foot-top"><a class="logo" href="index.html">PLAY<span class="z">Z</span>YRO</a>
+<nav><a href="index.html">Home</a><a href="tournaments.html">Tournaments</a><a href="about.html">About Us</a><a href="terms.html">Terms and Conditions</a></nav></div>
 <p class="small muted">Social links: to be provided by the client</p>
+<p class="small muted">Contact email: to be provided by the client</p>
 <p class="demo-note">Demo preview: sample accounts, tournaments and squads labelled Demo or Example are preview data only. Real tournaments, winners, posters and photos are added by the admin / provided by the client.</p>
 <p class="small muted" style="margin-top:10px">playzyro.xyz &nbsp;|&nbsp; &copy; <span id="yr"></span> PlayZyro. All rights reserved.</p>
 </div>

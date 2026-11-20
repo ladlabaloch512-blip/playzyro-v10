@@ -6,9 +6,9 @@
 <title>PlayZyro Tournament Community - PlayZyro</title>
 <meta name="description" content=" Tournaments, schedules, upcoming events and winners for the PlayZyro PUBG community, in one place online. ">
 <link rel="icon" href=" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23151517'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='900' fill='%232f81f7' text-anchor='middle' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E ">
-<link rel="stylesheet" href="assets/css/style.css?v=2026-11-19b">
+<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20a">
 <script>window.PZ_VARIANT = 'v10';</script>
-<script src="assets/js/app.js?v=2026-11-19b"></script>
+<script src="assets/js/app.js?v=2026-11-20a"></script>
 </head>
 <body class="home">
 <header class="site">
@@ -43,41 +43,78 @@
 </section>
 
 <h2 class="sec">Active Tournaments</h2>
-<div class="tablewrap"><table>
+<div class="tablewrap stackwrap"><table class="stack">
 <thead><tr><th>Status</th><th>Name</th><th>Date</th><th>Action</th></tr></thead>
 <tbody id="home-tournaments"></tbody>
 </table></div>
 
 <h2 class="sec">Tournament Series</h2>
 <div class="grid3">
-<div class="ph tall blue">Poster Placeholder</div>
-<div class="ph tall blue">Poster Placeholder</div>
-<div class="ph tall blue">Poster Placeholder</div>
+<div class="card"><div class="ph tall blue gridbg">Poster Placeholder</div><div class="body"><p class="muted small">Series poster: to be provided by the client</p></div></div>
+<div class="card"><div class="ph tall blue gridbg">Poster Placeholder</div><div class="body"><p class="muted small">Series poster: to be provided by the client</p></div></div>
+<div class="card"><div class="ph tall blue gridbg">Poster Placeholder</div><div class="body"><p class="muted small">Series poster: to be provided by the client</p></div></div>
 </div>
 
 <h2 class="sec">Champions Wall</h2>
 <div class="grid3">
-<div><div class="ph champ-ph"><svg class="x" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><g stroke="#33333c" stroke-width="1"><line x1="0" y1="0" x2="100" y2="100"/><line x1="100" y1="0" x2="0" y2="100"/></g></svg><span class="c"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a2 2 0 0 0 0 4h3M17 6h3a2 2 0 0 1 0 4h-3"/></svg>Winner Photo Placeholder</span></div><p class="champ-line">Winner: To be confirmed</p></div>
-<div><div class="ph champ-ph"><svg class="x" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><g stroke="#33333c" stroke-width="1"><line x1="0" y1="0" x2="100" y2="100"/><line x1="100" y1="0" x2="0" y2="100"/></g></svg><span class="c"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Winner Photo Placeholder</span></div><p class="champ-line">Winner: To be confirmed</p></div>
-<div><div class="ph champ-ph"><svg class="x" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><g stroke="#33333c" stroke-width="1"><line x1="0" y1="0" x2="100" y2="100"/><line x1="100" y1="0" x2="0" y2="100"/></g></svg><span class="c"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Winner Photo Placeholder</span></div><p class="champ-line">Winner: To be confirmed</p></div>
+<div><div class="photo-ph champ-ph"><span class="ph-frame"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21.5c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5z"/></svg><span>Winner Photo Placeholder</span></span></div><p class="champ-line"><span class="cl-k">Event:</span> <span class="cl-v">To be confirmed</span></p><p class="champ-line"><span class="cl-k">Winner:</span> <span class="cl-v">To be confirmed</span></p></div>
+<div><div class="photo-ph champ-ph"><span class="ph-frame"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21.5c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5z"/></svg><span>Winner Photo Placeholder</span></span></div><p class="champ-line"><span class="cl-k">Event:</span> <span class="cl-v">To be confirmed</span></p><p class="champ-line"><span class="cl-k">Winner:</span> <span class="cl-v">To be confirmed</span></p></div>
+<div><div class="photo-ph champ-ph"><span class="ph-frame"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21.5c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5z"/></svg><span>Winner Photo Placeholder</span></span></div><p class="champ-line"><span class="cl-k">Event:</span> <span class="cl-v">To be confirmed</span></p><p class="champ-line"><span class="cl-k">Winner:</span> <span class="cl-v">To be confirmed</span></p></div>
 </div>
 
 <h2 class="sec">Upcoming Events</h2>
 <div class="panel"><div id="home-events" class="evlist"></div></div>
+
+<h2 class="sec">How It Works</h2>
+<div class="steps">
+<div class="step"><span class="n">1</span><div><h3>Create your account</h3><p>Sign up and log in to your own PlayZyro account.</p></div></div>
+<div class="step"><span class="n">2</span><div><h3>Build your squad</h3><p>Create a squad as captain, or join one with the squad's join code. A squad holds 4 to 5 players.</p></div></div>
+<div class="step"><span class="n">3</span><div><h3>Apply for a tournament</h3><p>Squads with at least 4 members can apply from the tournament page.</p></div></div>
+<div class="step"><span class="n">4</span><div><h3>Get assigned</h3><p>The PlayZyro admin reviews applications and assigns squads. Watch your dashboard for your tournaments.</p></div></div>
+<div class="step"><span class="n">5</span><div><h3>Play at match time</h3><p>Your Room ID and password are published on your dashboard at match time, visible only to your squad.</p></div></div>
+</div>
+
+<h2 class="sec">Why PlayZyro</h2>
+<div class="panel"><ul class="ticks">
+<li>Tournaments, schedules and upcoming events for the PlayZyro PUBG community, in one place online.</li>
+<li>A real squad system: create a squad, share its join code, and apply together.</li>
+<li>Room details delivered to assigned squads at match time, on their own dashboard.</li>
+<li>Winners from finished tournaments are published on the site.</li>
+</ul></div>
+
+<h2 class="sec">FAQ</h2>
+<div class="faq">
+<div class="qa"><h3>What is PlayZyro?</h3><p>PlayZyro runs PUBG community tournaments online: schedules, squads, assignments and winners in one place.</p></div>
+<div class="qa"><h3>How many players are in a squad?</h3><p>A squad holds 4 to 5 players. The captain creates the squad and shares its join code.</p></div>
+<div class="qa"><h3>How do I join a squad?</h3><p>Ask the captain for the squad's join code, then use Join a Squad while logged in.</p></div>
+<div class="qa"><h3>Can I be in more than one squad?</h3><p>In this stage each player has one active squad.</p></div>
+<div class="qa"><h3>How does my squad enter a tournament?</h3><p>A squad with at least 4 members applies from the tournament page. The admin assigns squads, and assigned squads see the tournament on their dashboard.</p></div>
+<div class="qa"><h3>When do we get the Room ID and password?</h3><p>The admin publishes them at match time. They appear on the dashboard of assigned squad members only.</p></div>
+<div class="qa"><h3>Does PlayZyro take payments?</h3><p>No. PlayZyro does not take payments, deposits or withdrawals on this site.</p></div>
+<div class="qa"><h3>How are winners announced?</h3><p>Winners from finished tournaments are published in the winners section on this site.</p></div>
+<div class="qa"><h3>How do I contact PlayZyro?</h3><p>Contact email: to be provided by the client.</p></div>
+</div>
+
+<div class="cta-band">
+<h2>Ready to Play?</h2>
+<p>Create your account, build your squad and apply for a tournament. Your Room ID and password appear on your dashboard at match time.</p>
+<div class="row"><a class="btn" href="auth.html">Create Your Account</a><a class="btn ghost" href="tournaments.html">View Tournaments</a></div>
+</div>
 </div>
 <script>
 function chip(s){var c=(s==='Registration Open'||s==='Live')?'chip blue':'chip';return '<span class="'+c+'">'+PZ.esc(s)+'</span>';}
 var tb=document.getElementById('home-tournaments');
 if(!PZ.db.tournaments.length){tb.innerHTML='<tr><td colspan="4" class="empty">No tournaments yet. Tournaments added by the admin will appear here.</td></tr>';}
-else{tb.innerHTML=PZ.db.tournaments.map(function(t){return '<tr><td>'+chip(t.status)+'</td><td class="name">'+PZ.esc(t.name)+'</td><td>'+PZ.esc(t.dateText)+'</td><td><a class="btn sm" href="tournament.html?id='+t.id+'">View / Apply</a></td></tr>';}).join('');}
+else{tb.innerHTML=PZ.db.tournaments.map(function(t){return '<tr><td data-label="Status">'+chip(t.status)+'</td><td class="name" data-label="Name">'+PZ.esc(t.name)+'</td><td data-label="Date">'+PZ.esc(t.dateText)+'</td><td data-label="Action"><a class="btn sm" href="tournament.html?id='+t.id+'">View / Apply</a></td></tr>';}).join('');}
 var ev=document.getElementById('home-events');
 ev.innerHTML=PZ.db.events.length?PZ.db.events.map(function(e){return '<div class="evitem"><b>'+PZ.esc(e.title)+'</b><br><span class="muted small">'+PZ.esc(e.dateText)+'</span></div>';}).join(''):'<p class="muted">No upcoming events yet. Events added by the admin will appear here.</p>';
 </script>
 <footer class="site">
 <div class="wrap">
-<a class="logo" href="index.html">PLAY<span class="z">Z</span>YRO</a>
-<nav><a href="index.html">Home</a><a href="tournaments.html">Tournaments</a><a href="about.html">About Us</a><a href="terms.html">Terms and Conditions</a></nav>
+<div class="foot-top"><a class="logo" href="index.html">PLAY<span class="z">Z</span>YRO</a>
+<nav><a href="index.html">Home</a><a href="tournaments.html">Tournaments</a><a href="about.html">About Us</a><a href="terms.html">Terms and Conditions</a></nav></div>
 <p class="small muted">Social links: to be provided by the client</p>
+<p class="small muted">Contact email: to be provided by the client</p>
 <p class="demo-note">Demo preview: sample accounts, tournaments and squads labelled Demo or Example are preview data only. Real tournaments, winners, posters and photos are added by the admin / provided by the client.</p>
 <p class="small muted" style="margin-top:10px">playzyro.xyz &nbsp;|&nbsp; &copy; <span id="yr"></span> PlayZyro. All rights reserved.</p>
 </div>

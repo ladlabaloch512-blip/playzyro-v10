@@ -3,7 +3,7 @@
    tournaments and room credentials are created through the site's own flows.
    Mirrors the later WordPress tables: users, squads, tournaments, events,
    applications, assignments, rooms. */
-window.PZ_VERSION = '2026-11-19b';
+window.PZ_VERSION = '2026-11-20a';
 (function () {
   var V = window.PZ_VARIANT || 'vx';
   var KEY = 'pz_' + V + '_db_v1';
@@ -125,5 +125,56 @@ window.PZ_VERSION = '2026-11-19b';
     }
   };
   window.PZ = PZ;
-  document.addEventListener('DOMContentLoaded', function () { PZ.mountUserChip(); });
+
+  /* R2: mobile slide-in drawer. Built from the page's own nav so every page
+     gets the same drawer: full nav + login/register (or user + log out). */
+  function buildDrawer() {
+    var headerIn = document.querySelector('header.site .header-in');
+    if (!headerIn || document.querySelector('.drawer')) return;
+    var burger = document.createElement('button');
+    burger.type = 'button';
+    burger.className = 'nav-toggle';
+    burger.setAttribute('aria-label', 'Open menu');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>';
+    headerIn.appendChild(burger);
+
+    var backdrop = document.createElement('div');
+    backdrop.className = 'drawer-backdrop';
+    var drawer = document.createElement('aside');
+    drawer.className = 'drawer';
+    drawer.setAttribute('aria-label', 'Menu');
+    var links = [];
+    document.querySelectorAll('header.site nav.main a').forEach(function (a) {
+      if (a.style.display === 'none') return;
+      links.push('<a href="' + a.getAttribute('href') + '">' + a.innerHTML + '</a>');
+    });
+    var authHtml;
+    if (document.querySelector('header.site [data-user-chip]')) {
+      authHtml = '<span data-user-chip></span>';
+    } else {
+      var u = PZ.session();
+      authHtml = u
+        ? '<span class="drawer-user">' + PZ.esc(u.username) + '</span><a class="btn block ghost" href="#" data-logout>Log out</a>'
+        : '<a class="btn block" href="auth.html">Log In</a><a class="btn block outline" href="auth.html">Register</a>';
+    }
+    drawer.innerHTML = '<div class="drawer-head"><a class="logo" href="index.html">PLAY<span class="z">Z</span>YRO</a>'
+      + '<button type="button" class="drawer-close" aria-label="Close menu"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>'
+      + '<nav>' + links.join('') + '</nav>'
+      + '<div class="drawer-auth">' + authHtml + '</div>';
+    document.body.appendChild(backdrop);
+    document.body.appendChild(drawer);
+    function setOpen(open) {
+      drawer.classList.toggle('open', open);
+      backdrop.classList.toggle('show', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    burger.addEventListener('click', function () { setOpen(true); });
+    backdrop.addEventListener('click', function () { setOpen(false); });
+    drawer.querySelector('.drawer-close').addEventListener('click', function () { setOpen(false); });
+    drawer.querySelectorAll('nav a').forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () { buildDrawer(); PZ.mountUserChip(); });
 })();
