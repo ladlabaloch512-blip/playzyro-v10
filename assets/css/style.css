@@ -402,8 +402,12 @@ body.home h2.sec{font-size:18px;margin:30px 0 12px}
 #panel-users .tablewrap,#panel-squads .tablewrap{overflow-x:visible}
 #panel-users .act,#panel-squads .act{font-size:11.5px;letter-spacing:.02em;padding:2px 2px;white-space:normal}
 #panel-users th:nth-child(1){width:30%}#panel-users th:nth-child(2){width:16%}#panel-users th:nth-child(3){width:18%}#panel-users th:nth-child(4){width:36%}
-#panel-squads th:nth-child(1){width:24%}#panel-squads th:nth-child(2){width:24%}#panel-squads th:nth-child(3){width:11%}#panel-squads th:nth-child(4){width:15%}#panel-squads th:nth-child(5){width:26%}
-#panel-squads td:nth-child(2){font-size:11.5px}
+#panel-squads th:nth-child(1){width:21%}#panel-squads th:nth-child(2){width:22%}#panel-squads th:nth-child(3){width:15%}#panel-squads th:nth-child(4){width:15%}#panel-squads th:nth-child(5){width:27%}
+#panel-squads td:nth-child(2){font-size:11px}
+#panel-users th,#panel-squads th{overflow-wrap:normal}
+#panel-squads table{font-size:11.5px}
+#panel-squads th{font-size:10.5px;letter-spacing:.03em}
+#panel-squads td{padding:8px 5px}
 }
 .admin-grid{display:block;column-count:3;column-gap:18px}
 .admin-grid>.panel{break-inside:avoid;margin:0 0 18px!important}
