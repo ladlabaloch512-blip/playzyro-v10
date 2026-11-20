@@ -115,6 +115,7 @@ window.PZ_VERSION = '2026-11-20c';
       setTimeout(function () { t.classList.remove('show'); setTimeout(function () { t.remove(); }, 300); }, 3200);
     },
     requireAuth: function () { var u = PZ.session(); if (!u) { location.href = 'auth.html?next=' + encodeURIComponent(location.pathname.split('/').pop()); return null; } return u; },
+    avatarColor: function (name) { var p = ['#2f81f7', '#3fb950', '#bc8cff', '#f778ba', '#ffa657', '#56d364', '#e3b341', '#79c0ff']; var h = 0; name = String(name || '?'); for (var i = 0; i < name.length; i++) { h = (h * 31 + name.charCodeAt(i)) >>> 0; } return p[h % p.length]; },
     mountUserChip: function () {
       var u = PZ.session();
       document.querySelectorAll('[data-user-chip]').forEach(function (el) {

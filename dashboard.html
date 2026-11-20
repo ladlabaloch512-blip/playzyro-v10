@@ -6,9 +6,9 @@
 <title>Dashboard - PlayZyro</title>
 <meta name="description" content=" Your PlayZyro dashboard: my squad, enrolled tournaments and room details. ">
 <link rel="icon" href=" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23151517'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='900' fill='%232f81f7' text-anchor='middle' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E ">
-<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20e">
+<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20g">
 <script>window.PZ_VARIANT = 'v10';</script>
-<script src="assets/js/app.js?v=2026-11-20e"></script>
+<script src="assets/js/app.js?v=2026-11-20g"></script>
 </head>
 <body>
 <header class="site">
@@ -26,6 +26,7 @@
 </script>
 
 <div class="wrap">
+<div class="pagehead dash-head"><h1>Dashboard</h1><a class="btn" href="squad-create.html">Create Squad</a></div>
 <div class="dash-grid">
 <div>
 <h2 class="sec" style="margin-top:0">My Squad</h2>
@@ -34,11 +35,8 @@
 <div id="room-box"></div>
 </div>
 <div>
-<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-<h2 class="sec" style="margin:0;flex:1">Enrolled Tournaments</h2>
-<a class="btn sm" href="squad-create.html">Create Squad</a>
-</div>
-<div class="tablewrap stackwrap" style="margin-top:14px"><table class="stack">
+<h2 class="sec" style="margin:0">Enrolled Tournaments</h2>
+<div class="tablewrap stackwrap" id="enrolled-wrap" style="margin-top:14px"><table class="stack">
 <thead><tr><th>Tournament</th><th>Date / Time</th><th>Round</th><th>Slots</th><th>Status</th><th>Prize</th></tr></thead>
 <tbody id="my-rows"></tbody>
 </table></div>
@@ -51,12 +49,13 @@ var u=PZ.requireAuth();
 if(u){
  document.getElementById('dh-name').textContent=u.username;
  document.getElementById('dh-avatar').textContent=u.username.charAt(0).toUpperCase();
+ document.getElementById('dh-avatar').style.background=PZ.avatarColor(u.username);
  var s=PZ.mySquad(u.id), sb=document.getElementById('squad-box');
  if(!s){sb.innerHTML='<div class="panel"><p class="muted">You are not in a squad yet. Create your own squad as captain, or join one with a code.</p><p style="margin-top:14px;display:grid;gap:10px"><a class="btn block" href="squad-create.html">Create Squad</a><a class="btn block ghost" href="squad-join.html">Join with a code</a></p></div>';}
  else{
    var cap=PZ.user(s.captainId);
    var members=s.memberIds.map(function(id){var m=PZ.user(id);var nm=m?m.username:'Player';var tag=(id===s.captainId)?' (Captain)':'';
-     return '<div class="member"><span class="avatar">'+PZ.esc(nm.charAt(0).toUpperCase())+'</span><span><b>'+PZ.esc(nm)+'</b><span class="muted">'+tag+'</span></span></div>';}).join('');
+     return '<div class="member"><span class="avatar" style="background:'+PZ.avatarColor(nm)+'">'+PZ.esc(nm.charAt(0).toUpperCase())+'</span><span><b>'+PZ.esc(nm)+'</b><span class="muted">'+tag+'</span></span></div>';}).join('');
    sb.innerHTML='<p style="font-size:19px;font-weight:800;margin-bottom:10px">'+PZ.esc(s.name)+'</p>'
     +'<div class="photo-ph"><span class="ph-frame"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21.5c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5z"/></svg><span>Team Photo Placeholder</span></span></div>'
     +'<div style="margin-top:8px">'+members+'</div>'
@@ -85,7 +84,7 @@ if(u){
    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(done,done);}else{done();}
  });});
  var rows=document.getElementById('my-rows');
- if(!mine.length){rows.innerHTML='<tr><td colspan="6" class="empty">No enrolled tournaments yet. Apply from the tournaments page.</td></tr>';}
+ if(!mine.length){document.getElementById('enrolled-wrap').outerHTML='<div class="panel empty-panel" style="margin-top:14px">No enrolled tournaments yet. <a href="tournaments.html">Browse tournaments and apply</a> with your squad.</div>';}
  else{rows.innerHTML=mine.map(function(t){
    var app=PZ.db.applications.find(function(a){return s&&a.squadId===s.id&&a.tournamentId===t.id;});
    var status=app?app.status:t.status;

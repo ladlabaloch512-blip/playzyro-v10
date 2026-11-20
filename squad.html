@@ -6,9 +6,9 @@
 <title>My Squad - PlayZyro</title>
 <meta name="description" content=" Your PlayZyro squad. ">
 <link rel="icon" href=" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23151517'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='900' fill='%232f81f7' text-anchor='middle' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E ">
-<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20e">
+<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20g">
 <script>window.PZ_VARIANT = 'v10';</script>
-<script src="assets/js/app.js?v=2026-11-20e"></script>
+<script src="assets/js/app.js?v=2026-11-20g"></script>
 </head>
 <body>
 <header class="site">
@@ -28,22 +28,36 @@
 
 <div class="wrap">
 <div class="pagehead"><h1>My Squad</h1></div>
-<div id="squad-main" style="max-width:640px"></div>
+<div id="squad-main" style="max-width:900px"></div>
 </div>
 <script>
 var u=PZ.requireAuth();
 if(u){var s=PZ.mySquad(u.id), el=document.getElementById('squad-main');
  if(!s){el.innerHTML='<div class="panel"><p class="muted">You are not in a squad yet.</p><p style="margin-top:14px;display:grid;gap:10px"><a class="btn block" href="squad-create.html">Create a squad</a><a class="btn block ghost" href="squad-join.html">Join with a code</a></p></div>';}
  else{
-  var members=s.memberIds.map(function(id){var m=PZ.user(id);var nm=m?m.username:'Player';var tag=(id===s.captainId)?' (Captain)':'';
-   return '<div class="member"><span class="avatar">'+PZ.esc(nm.charAt(0).toUpperCase())+'</span><span><b>'+PZ.esc(nm)+'</b><span class="muted">'+tag+'</span></span></div>';}).join('');
+  var isCap=u.id===s.captainId;
+  var segs='';for(var si=0;si<5;si++){segs+='<i class="'+(si<s.memberIds.length?'on':'')+'"></i>';}
+  var rows=s.memberIds.map(function(id){var m=PZ.user(id);var nm=m?m.username:'Player';var role=(id===s.captainId)?'Captain':'Member';
+   var act=(isCap&&id!==s.captainId)?'<button class="act danger" type="button" data-remove="'+id+'">Remove</button>':'';
+   return '<tr><td><span class="member" style="border-bottom:none;padding:0"><span class="avatar" style="background:'+PZ.avatarColor(nm)+'">'+PZ.esc(nm.charAt(0).toUpperCase())+'</span><b>'+PZ.esc(nm)+'</b></span></td><td>'+role+'</td><td style="text-align:right">'+act+'</td></tr>';}).join('');
+  for(var ek=s.memberIds.length;ek<5;ek++){rows+='<tr><td class="muted">Empty slot</td><td class="muted">-</td><td></td></tr>';}
   el.innerHTML='<div class="panel"><p style="font-size:21px;font-weight:800">'+PZ.esc(s.name)+'</p>'
-   +'<div class="photo-ph" style="margin-top:12px"><span class="ph-frame"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21.5c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5z"/></svg><span>Team Photo Placeholder</span></span></div>'
-   +'<p class="small muted" style="margin-top:12px">'+s.memberIds.length+' of 5 members. A squad needs at least 4 members to apply for a tournament.</p>'
-   +'<div style="margin-top:6px">'+members+'</div>'
-   +'<div class="codebox"><div style="flex:1"><div class="small muted" style="text-transform:uppercase;letter-spacing:.06em">Squad Join Code</div><div class="code">'+PZ.esc(s.joinCode)+'</div></div><button class="btn sm" id="copy-btn" type="button">Copy</button></div>'
-   +'<p style="margin-top:14px"><a class="btn" href="tournaments.html">Apply for a tournament</a></p></div>';
+   +'<div class="squad-band"><div class="photo-ph"><span class="ph-frame"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21.5c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5z"/></svg><span>Team Photo Placeholder</span></span></div>'
+   +'<div class="codebox" style="margin-top:0"><div style="flex:1"><div class="small muted" style="text-transform:uppercase;letter-spacing:.06em">Squad Join Code</div><div class="code">'+PZ.esc(s.joinCode)+'</div></div><button class="btn sm" id="copy-btn" type="button">Copy</button></div></div>'
+   +'<div class="status-row"><span class="segs">'+segs+'</span><span><b>'+s.memberIds.length+' of 5 members.</b> A squad needs at least 4 members to apply for a tournament.</span></div>'
+   +'<div class="tablewrap" style="margin-top:16px"><table class="mtable" style="min-width:0"><thead><tr><th>Member</th><th>Role</th><th style="text-align:right">Actions</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
+   +'<p style="margin-top:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap"><a class="btn" href="tournaments.html">Apply for a tournament</a><button class="act danger" id="leave-btn" type="button" style="margin-left:auto">Leave Squad</button></p></div>';
   document.getElementById('copy-btn').addEventListener('click',function(){if(navigator.clipboard){navigator.clipboard.writeText(s.joinCode);}PZ.toast('Join code copied: '+s.joinCode);});
+  el.querySelectorAll('[data-remove]').forEach(function(b){b.addEventListener('click',function(){
+   var mid=b.getAttribute('data-remove');var mm=PZ.user(mid);
+   if(!confirm('Remove '+(mm?mm.username:'this member')+' from the squad?'))return;
+   s.memberIds=s.memberIds.filter(function(x){return x!==mid;});PZ.save();PZ.toast('Member removed.');location.reload();});});
+  document.getElementById('leave-btn').addEventListener('click',function(){
+   if(!confirm('Leave this squad?'))return;
+   s.memberIds=s.memberIds.filter(function(x){return x!==u.id;});
+   if(!s.memberIds.length){PZ.db.squads=PZ.db.squads.filter(function(x){return x.id!==s.id;});}
+   else if(s.captainId===u.id){s.captainId=s.memberIds[0];}
+   PZ.save();PZ.toast('You left the squad.');location.reload();});
  }}
 </script>
 <footer class="site">

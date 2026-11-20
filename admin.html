@@ -6,9 +6,9 @@
 <title>Admin Panel - PlayZyro</title>
 <meta name="description" content=" PlayZyro admin panel: users, squads, tournaments, events, team assignment and room publishing. ">
 <link rel="icon" href=" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23151517'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='900' fill='%232f81f7' text-anchor='middle' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E ">
-<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20e">
+<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20g">
 <script>window.PZ_VARIANT = 'v10';</script>
-<script src="assets/js/app.js?v=2026-11-20e"></script>
+<script src="assets/js/app.js?v=2026-11-20g"></script>
 </head>
 <body>
 <header class="site">
@@ -37,7 +37,6 @@
 </div>
 <div id="admin-main" style="display:none">
 <div class="admin-grid">
-<div>
 <div class="panel" id="panel-tournaments">
 <h3>Tournaments Manager</h3>
 <div class="tlist" id="tm-list"></div>
@@ -45,31 +44,30 @@
 <div class="panel" style="margin-top:18px">
 <h3>Assign Teams to Tournament</h3>
 <label for="as-t">Select Tournament</label><select id="as-t"></select>
-<label>Select Squads</label>
+<label>Squads</label>
 <div class="checklist" id="as-squads"></div>
 <button class="btn block" id="as-btn" type="button">Assign Teams</button>
-<div id="as-apps" class="small muted" style="margin-top:12px"></div>
+<div class="small muted" style="text-transform:uppercase;letter-spacing:.06em;margin-top:14px">Applications</div>
+<div id="as-apps" class="small muted" style="margin-top:4px"></div>
 </div>
 <div class="panel" style="margin-top:18px">
 <h3>Create / Edit Tournament</h3>
 <form id="tm-form" autocomplete="off">
 <input type="hidden" id="tm-id">
 <label for="tm-name">Tournament name</label><input id="tm-name" required>
-<label for="tm-date">Date text</label><input id="tm-date" placeholder="Date to be confirmed">
+<label for="tm-date">Date text</label><input id="tm-date" placeholder="e.g. Date to be confirmed">
 <label for="tm-time">Time text (optional)</label><input id="tm-time">
-<label for="tm-mode">Mode</label><input id="tm-mode" value="Squad">
+<label for="tm-mode">Mode</label><select id="tm-mode"><option>Squad</option></select>
 <label for="tm-status">Status</label><select id="tm-status"><option>Registration Open</option><option>Upcoming</option><option>Live</option></select>
 <button class="btn block" type="submit" style="margin-top:16px">Save Tournament</button>
 <button class="btn block grey" type="button" id="tm-reset" style="margin-top:8px">New Tournament</button>
 </form>
 </div>
-</div>
-<div>
 <div class="panel" id="panel-users">
 <div class="panelhead"><h3>Users</h3><input type="search" id="u-q" placeholder="Search" aria-label="Search users"></div>
 <p class="scrollhint">Scroll sideways to see all columns</p>
 <div class="tablewrap" style="border:none"><table>
-<thead><tr><th>Username</th><th>ID</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
+<thead><tr><th>Username</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
 <tbody id="users-rows"></tbody>
 </table></div>
 <div class="pager"><button type="button" id="u-prev">&larr; Prev</button><span id="u-page"></span><button type="button" id="u-next">Next &rarr;</button></div>
@@ -92,16 +90,14 @@
 </div>
 <div class="photo-ph" style="min-height:90px;margin-top:12px"><span class="ph-frame"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21.5c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5z"/></svg><span>Team Photo Placeholder</span></span></div>
 </div>
-</div>
-<div>
 <div class="panel" id="panel-events">
-<h3>Upcoming Events</h3>
+<div class="panelhead"><h3>Upcoming Events</h3><span id="ev-add-slot"></span></div>
 <div class="timeline" id="ev-list"></div>
-<div id="ev-add-slot"></div>
 <form id="ev-form" autocomplete="off" style="display:none;margin-top:6px;border-top:1px solid var(--border);padding-top:6px">
+<input type="hidden" id="ev-id">
 <label for="ev-title">Event title</label><input id="ev-title" required>
-<label for="ev-date">Date text</label><input id="ev-date" placeholder="Date to be confirmed">
-<button class="btn block" type="submit" style="margin-top:16px">Add Event</button>
+<label for="ev-date">Date text</label><input id="ev-date" placeholder="e.g. Date to be confirmed">
+<button class="btn block" type="submit" id="ev-submit" style="margin-top:16px">Add Event</button>
 </form>
 </div>
 <div class="panel" style="margin-top:18px" id="panel-room">
@@ -114,7 +110,6 @@
 </form>
 <p class="small muted" style="margin-top:10px">Only squads assigned to that tournament will see the published room on their dashboard.</p>
 <div id="rm-list" class="small muted" style="margin-top:10px"></div>
-</div>
 </div>
 </div>
 </div>
@@ -146,11 +141,11 @@ else{
   var start=(uState.page-1)*PAGE, rows=list.slice(start,start+PAGE);
   document.getElementById('users-rows').innerHTML=rows.length?rows.map(function(x){
    var status=x.banned?'<span class="status-banned">Banned</span>':'<span class="status-active">Active</span>';
-   var main='<tr><td class="name">'+PZ.esc(x.username)+'</td><td>'+PZ.esc(x.id)+'</td><td>'+roleOf(x)+'</td><td>'+status+'</td><td><button class="act" type="button" data-uedit="'+x.id+'">Edit</button> / <button class="act danger" type="button" data-uban="'+x.id+'">'+(x.banned?'Unban':'Ban')+'</button></td></tr>';
+   var main='<tr><td class="name">'+PZ.esc(x.username)+'</td><td>'+roleOf(x)+'</td><td>'+status+'</td><td><button class="act" type="button" data-uedit="'+x.id+'">Edit</button> / <button class="act danger" type="button" data-uban="'+x.id+'">'+(x.banned?'Unban':'Ban')+'</button></td></tr>';
    if(uState.editId===x.id){
-    main+='<tr><td colspan="5"><form class="inline-edit" data-uform="'+x.id+'"><input value="'+PZ.esc(x.username)+'" aria-label="New username" required minlength="3"><button class="btn sm" type="submit">Save</button><button class="btn sm grey" type="button" data-ucancel="1">Cancel</button></form></td></tr>';
+    main+='<tr><td colspan="4"><form class="inline-edit" data-uform="'+x.id+'"><input value="'+PZ.esc(x.username)+'" aria-label="New username" required minlength="3"><button class="btn sm" type="submit">Save</button><button class="btn sm grey" type="button" data-ucancel="1">Cancel</button></form></td></tr>';
    }
-   return main;}).join(''):'<tr><td colspan="5" class="empty">No users match your search.</td></tr>';
+   return main;}).join(''):'<tr><td colspan="4" class="empty">No users match your search.</td></tr>';
   document.getElementById('u-page').textContent='Page '+uState.page+' of '+pages;
   document.getElementById('u-prev').disabled=uState.page<=1;
   document.getElementById('u-next').disabled=uState.page>=pages;
@@ -207,13 +202,23 @@ else{
  }
  function renderEvents(){
   var addBtn='<button class="btn outline ev-add-btn" type="button">+ Add Event</button>';
+  document.getElementById('ev-add-slot').innerHTML=addBtn;
   document.getElementById('ev-list').innerHTML=PZ.db.events.length?PZ.db.events.map(function(e){
-   return '<div class="tl-item"><div class="tl-date">TBC</div><span class="tl-dot"></span><div class="tl-card"><div class="small muted">'+PZ.esc(e.dateText)+'</div><b>'+PZ.esc(e.title)+'</b></div></div><div class="ev-add">'+addBtn+'</div>';}).join(''):'<p class="muted">No events yet.</p>';
-  document.getElementById('ev-add-slot').innerHTML=PZ.db.events.length?'':('<div style="margin-top:10px">'+addBtn+'</div>');
+   return '<div class="tl-item"><div class="tl-date">TBC</div><span class="tl-dot"></span><div class="tl-card"><div class="small muted">'+PZ.esc(e.dateText)+'</div><b>'+PZ.esc(e.title)+'</b><div style="margin-top:6px"><button class="act" type="button" data-ev-edit="'+e.id+'">Edit</button> / <button class="act danger" type="button" data-ev-del="'+e.id+'">Delete</button></div></div></div>';}).join(''):'<p class="muted">No events yet.</p>';
   document.querySelectorAll('.ev-add-btn').forEach(function(b){b.addEventListener('click',function(){
    var f=document.getElementById('ev-form'); var show=f.style.display==='none';
    f.style.display=show?'block':'none';
-   if(show){f.scrollIntoView({block:'center'});document.getElementById('ev-title').focus();}});});
+   if(show){document.getElementById('ev-id').value='';document.getElementById('ev-submit').textContent='Add Event';f.scrollIntoView({block:'center'});document.getElementById('ev-title').focus();}});});
+  document.querySelectorAll('[data-ev-edit]').forEach(function(b){b.addEventListener('click',function(){
+   var ev=PZ.db.events.find(function(x){return x.id===b.getAttribute('data-ev-edit');});if(!ev)return;
+   var f=document.getElementById('ev-form');f.style.display='block';
+   document.getElementById('ev-id').value=ev.id;document.getElementById('ev-title').value=ev.title;document.getElementById('ev-date').value=ev.dateText;
+   document.getElementById('ev-submit').textContent='Save Event';
+   f.scrollIntoView({block:'center'});document.getElementById('ev-title').focus();});});
+  document.querySelectorAll('[data-ev-del]').forEach(function(b){b.addEventListener('click',function(){
+   var id=b.getAttribute('data-ev-del');
+   PZ.db.events=PZ.db.events.filter(function(x){return x.id!==id;});
+   PZ.save();render();PZ.toast('Event deleted');});});
  }
  function renderRooms(){
   var rk=Object.keys(PZ.db.rooms);
@@ -237,8 +242,11 @@ else{
   PZ.save();e.target.reset();document.getElementById('tm-id').value='';document.getElementById('tm-mode').value='Squad';render();PZ.toast('Tournament saved');});
  document.getElementById('tm-reset').addEventListener('click',function(){document.getElementById('tm-form').reset();document.getElementById('tm-id').value='';document.getElementById('tm-mode').value='Squad';});
  document.getElementById('ev-form').addEventListener('submit',function(e){e.preventDefault();
-  PZ.db.events.push({id:'e'+Math.random().toString(36).slice(2,8).toUpperCase(),title:document.getElementById('ev-title').value.trim(),dateText:document.getElementById('ev-date').value.trim()||'Date to be confirmed'});
-  PZ.save();e.target.reset();e.target.style.display='none';render();PZ.toast('Event added');});
+  var eid=document.getElementById('ev-id').value;
+  var vals={title:document.getElementById('ev-title').value.trim(),dateText:document.getElementById('ev-date').value.trim()||'Date to be confirmed'};
+  if(eid){var ev=PZ.db.events.find(function(x){return x.id===eid;});if(ev)Object.assign(ev,vals);}
+  else{PZ.db.events.push(Object.assign({id:'e'+Math.random().toString(36).slice(2,8).toUpperCase()},vals));}
+  PZ.save();e.target.reset();document.getElementById('ev-id').value='';document.getElementById('ev-submit').textContent='Add Event';e.target.style.display='none';render();PZ.toast(eid?'Event updated':'Event added');});
  document.getElementById('as-btn').addEventListener('click',function(){
   var tid=document.getElementById('as-t').value;var checked=document.querySelectorAll('.as-sq:checked');
   if(!tid){PZ.toast('Create a tournament first');return;}

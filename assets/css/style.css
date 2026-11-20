@@ -365,6 +365,54 @@ footer.site .demo-note{margin-top:10px}
  .roomvals{grid-template-columns:1fr}
 }
 
+/* ===== UI/UX round (Snow-approved analysis, 2026-11-20) ===== */
+.muted{color:#a7b1bf}
+.small{font-size:13.5px}
+.step p,.qa p{font-size:14px;color:#a7b1bf}
+.demo-note{font-size:13px;color:#a7b1bf}
+label{color:#9aa7b4}
+.fctl label{letter-spacing:.08em}
+h2.sec{font-size:20px;letter-spacing:.07em;margin:36px 0 14px}
+body.home h2.sec{font-size:18px;margin:30px 0 12px}
+.chip.prize{background:transparent;color:#c9c9d1;padding:0;font-weight:600}
+.evitem.evrow{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:10px 13px}
+@media(min-width:821px){.astat{display:flex;align-items:baseline;justify-content:space-between;gap:14px;border-bottom:1px solid var(--border);padding-bottom:10px}.astat .al{order:-1;margin-top:0}}
+.demo-box .cred{display:block;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;color:#e8e8ea;margin-top:5px}
+.crate{right:20px;bottom:20px;opacity:.85}
+.pagehead.dash-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.room-tab{margin:0;clip-path:none;border-radius:5px}
+.room-top{padding:12px 14px 0;align-items:center}
+.room-starts{padding:0}
+.squad-band{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px;align-items:start}
+@media(max-width:760px){.squad-band{grid-template-columns:1fr}}
+.status-row{display:flex;gap:12px;align-items:center;background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:10px 13px;font-size:13.5px;margin-top:16px}
+.segs{display:flex;gap:4px;flex:none}
+.segs i{width:16px;height:8px;border-radius:2px;background:#3a3a42}
+.segs i.on{background:var(--blue)}
+.mtable td{padding:10px 12px}
+.empty-panel{padding:22px;color:var(--muted)}
+.code-in{font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.15em;text-transform:uppercase;font-size:16px}
+.meta-table{table-layout:fixed;width:100%}
+.meta-table td:first-child{width:140px}
+.sched-table{font-size:13px}
+.sched-table td{padding:10px 12px}
+@media(min-width:821px){#panel-users table,#panel-squads table{table-layout:fixed;min-width:0;font-size:12.5px}#panel-users td,#panel-users th,#panel-squads td,#panel-squads th{padding:8px 10px}}
+.admin-grid{display:block;column-count:3;column-gap:18px}
+.admin-grid>.panel{break-inside:avoid;margin:0 0 18px!important}
+@media(max-width:1000px){.admin-grid{column-count:2}}
+@media(max-width:760px){.admin-grid{column-count:1}}
+.counts{gap:0}
+.count-pill{background:transparent;border:none;border-right:1px solid var(--border);border-radius:0;padding:2px 16px 2px 0;margin-right:16px}
+.count-pill:last-child{border-right:none;margin-right:0;padding-right:0}
+.count-pill b{font-size:17px;color:#fff}
+.gapbox{border:1px solid var(--border)}
+.gb-h{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text);margin-bottom:6px}
+.prose{line-height:1.7}
+.prose p{color:#c3ccd6;font-size:15px}
+.clause-index{columns:2;column-gap:26px;margin:0 0 20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.clause-index a{display:block;color:#a7b1bf;font-size:14px;padding:3px 0}
+.clause-index a:hover{color:var(--blue)}
+
 /* ===== PlayZyro Animations R1 (panel-approved S1-S5 + O1-O4, Chat 3) =====
    Rules: content visible on load, entrance starts from visible, no scroll-reveal,
    animations are never gated on any motion preference setting. */
