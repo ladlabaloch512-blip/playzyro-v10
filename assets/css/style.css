@@ -396,7 +396,15 @@ body.home h2.sec{font-size:18px;margin:30px 0 12px}
 .meta-table td:first-child{width:140px}
 .sched-table{font-size:13px}
 .sched-table td{padding:10px 12px}
-@media(min-width:821px){#panel-users table,#panel-squads table{table-layout:fixed;min-width:0;font-size:12.5px}#panel-users td,#panel-users th,#panel-squads td,#panel-squads th{padding:8px 10px}}
+@media(min-width:821px){
+#panel-users table,#panel-squads table{table-layout:fixed;min-width:0;font-size:12px}
+#panel-users td,#panel-users th,#panel-squads td,#panel-squads th{padding:8px 6px;overflow-wrap:break-word}
+#panel-users .tablewrap,#panel-squads .tablewrap{overflow-x:visible}
+#panel-users .act,#panel-squads .act{font-size:11.5px;letter-spacing:.02em;padding:2px 2px;white-space:normal}
+#panel-users th:nth-child(1){width:30%}#panel-users th:nth-child(2){width:16%}#panel-users th:nth-child(3){width:18%}#panel-users th:nth-child(4){width:36%}
+#panel-squads th:nth-child(1){width:24%}#panel-squads th:nth-child(2){width:24%}#panel-squads th:nth-child(3){width:11%}#panel-squads th:nth-child(4){width:15%}#panel-squads th:nth-child(5){width:26%}
+#panel-squads td:nth-child(2){font-size:11.5px}
+}
 .admin-grid{display:block;column-count:3;column-gap:18px}
 .admin-grid>.panel{break-inside:avoid;margin:0 0 18px!important}
 @media(max-width:1000px){.admin-grid{column-count:2}}
