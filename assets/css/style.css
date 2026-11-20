@@ -215,6 +215,11 @@ tr.hl td{background:#1c2a3f}
 .tchip{background:#3a3a42;color:#e8e8ea}
 .tchip.white{background:#e8e8ea;color:#17171a}
 .tchip.blue{background:var(--blue);color:#fff}
+@media(max-width:640px){
+ .trow{flex-wrap:wrap}
+ .trow .tmain{min-width:0;flex:1 1 auto}
+ .trow .tmain .chip{max-width:100%}
+}
 /* Admin-R1-05: events timeline */
 .timeline{position:relative;display:grid;gap:0}
 .timeline:before{content:"";position:absolute;left:56px;top:8px;bottom:8px;width:2px;background:#33333c}
