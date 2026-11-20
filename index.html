@@ -6,9 +6,9 @@
 <title>PlayZyro Tournament Community - PlayZyro</title>
 <meta name="description" content=" Tournaments, schedules, upcoming events and winners for the PlayZyro PUBG community, in one place online. ">
 <link rel="icon" href=" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23151517'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='900' fill='%232f81f7' text-anchor='middle' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E ">
-<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20g">
+<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20h">
 <script>window.PZ_VARIANT = 'v10';</script>
-<script src="assets/js/app.js?v=2026-11-20g"></script>
+<script src="assets/js/app.js?v=2026-11-20h"></script>
 </head>
 <body class="home">
 <header class="site">
@@ -102,7 +102,7 @@
 </div>
 </div>
 <script>
-function chip(s){var c=(s==='Registration Open')?'chip green':((s==='Live')?'chip blue':'chip');return '<span class="'+c+'">'+PZ.esc(s)+'</span>';}
+function chip(s){var c=(s==='Registration Open'||s==='Live')?'chip blue':'chip';return '<span class="'+c+'">'+PZ.esc(s)+'</span>';}
 var tb=document.getElementById('home-tournaments');
 if(!PZ.db.tournaments.length){tb.innerHTML='<tr><td colspan="4" class="empty">No tournaments yet. Tournaments added by the admin will appear here.</td></tr>';}
 else{tb.innerHTML=PZ.db.tournaments.map(function(t){return '<tr><td data-label="Status">'+chip(t.status)+'</td><td class="name" data-label="Name">'+PZ.esc(t.name)+'</td><td data-label="Date">'+PZ.esc(t.dateText)+'</td><td data-label="Action"><a class="btn sm" href="tournament.html?id='+t.id+'">View / Apply</a></td></tr>';}).join('');}
