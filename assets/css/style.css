@@ -46,7 +46,8 @@ nav.main a:hover{color:#fff;text-decoration:none}
 .chip{display:inline-block;background:var(--chip);color:#e8e8ea;border-radius:4px;padding:2px 9px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
 .chip.blue{background:var(--blue);color:#fff}
 .chip.green{background:#1d3a24;color:#7ee2a0}
-.tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:var(--panel)}
+.tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:var(--panel);max-width:100%}
+.admin-grid>*{min-width:0}
 table{width:100%;border-collapse:collapse;min-width:560px}
 th{ text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--panel2);padding:11px 14px;border-bottom:1px solid var(--border)}
 td{padding:12px 14px;border-bottom:1px solid #26262c;vertical-align:middle}
@@ -248,8 +249,8 @@ button{font-family:inherit}
 .champ-line .cl-v{white-space:nowrap}
 /* R2-01/02: mobile header one row + slide-in drawer */
 .nav-toggle{display:none;background:none;border:1px solid var(--border);border-radius:5px;width:40px;height:40px;align-items:center;justify-content:center;cursor:pointer;color:#fff;flex:none;padding:0}
-.drawer{position:fixed;top:0;right:0;height:100dvh;width:min(320px,86vw);background:#141416;border-left:1px solid var(--border);z-index:200;transform:translateX(105%);transition:transform .32s ease;display:flex;flex-direction:column;padding:18px;overflow-y:auto}
-.drawer.open{transform:translateX(0)}
+.drawer{position:fixed;top:0;right:0;height:100dvh;width:min(320px,86vw);background:#141416;border-left:1px solid var(--border);z-index:200;transform:translateX(105%);visibility:hidden;transition:transform .32s ease,visibility 0s linear .32s;display:flex;flex-direction:column;padding:18px;overflow-y:auto}
+.drawer.open{transform:translateX(0);visibility:visible;transition:transform .32s ease,visibility 0s}
 .drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:190;opacity:0;pointer-events:none;transition:opacity .32s ease}
 .drawer-backdrop.show{opacity:1;pointer-events:auto}
 .drawer-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
@@ -387,5 +388,12 @@ footer.site .demo-note{margin-top:10px}
 @keyframes pzReveal{from{opacity:.55;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
 .grid3>div .ph{transition:border-color .45s ease,box-shadow .45s ease}
 .grid3>div.pz-active .ph{border-color:#2f81f7;box-shadow:0 0 0 1px #2f81f7}
+/* Animations R1 strengthening (panel ruling 2026-11-20): the rule above aimed at a .ph element
+   that does not exist inside the champion units, so no frame ever rendered. The real placeholder
+   is .photo-ph.champ-ph (it carries the border). Frame now lands there, and the active unit
+   scales slightly, in V10's restrained blue tuning. */
+.grid3>div{transition:transform .45s ease}
+.grid3>div.pz-active{transform:scale(1.02);position:relative;z-index:1}
+.grid3>div.pz-active .champ-ph{border-color:#2f81f7;box-shadow:0 0 0 1px #2f81f7,0 10px 24px rgba(0,0,0,.35)}
 /* Animations R1 fix: open state for the FAQ answer wrapper (was missing, answers could not expand). */
 .qa.pz-open .pz-faq-a{grid-template-rows:1fr}
