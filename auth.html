@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signup and Login - PlayZyro</title>
+<meta name="description" content=" Sign up or log in to PlayZyro. ">
+<link rel="icon" href=" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23151517'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='900' fill='%232f81f7' text-anchor='middle' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E ">
+<link rel="stylesheet" href="assets/css/style.css?v=2026-11-19b">
+<script>window.PZ_VARIANT = 'v10';</script>
+<script src="assets/js/app.js?v=2026-11-19b"></script>
+</head>
+<body>
+<header class="site">
+<div class="header-in">
+<a class="logo" href="index.html">PLAY<span class="z">Z</span>YRO</a>
+<nav class="main">
+<a href="index.html">Home</a><a href="tournaments.html">Tournaments</a><a href="about.html">About</a>
+<a href="dashboard.html" data-nav-dash style="display:none">Dashboard</a>
+<a href="admin.html" data-nav-admin style="display:none">Admin Panel</a>
+</nav>
+<div class="header-right"><span data-user-chip></span></div>
+</div>
+</header>
+<script>
+(function(){var u=window.PZ?PZ.session():null;if(u){var d=document.querySelector('[data-nav-dash]');if(d)d.style.display='';if(u.role==='admin'){var a=document.querySelector('[data-nav-admin]');if(a)a.style.display='';}}})();
+</script>
+
+<div class="auth-shell">
+<h1 style="text-align:center;font-size:26px;margin-bottom:20px">Signup and Login</h1>
+<div class="auth-card">
+<div class="auth-left">
+<span class="cnr tl"></span><span class="cnr tr"></span><span class="cnr bl"></span><span class="cnr br"></span>
+<div class="big">PLAY<span class="z">Z</span>YRO<span class="pl">PRO LEAGUE</span></div>
+<div class="auth-stats">
+<div class="astat"><div class="av">To be confirmed</div><div class="al">Players</div></div>
+<div class="astat"><div class="av">To be confirmed</div><div class="al">Active Tournaments</div></div>
+<div class="astat"><div class="av">To be confirmed</div><div class="al">In Prizes</div></div>
+</div>
+<svg class="crate" viewBox="0 0 200 200" role="img" aria-label="Supply crate artwork" xmlns="http://www.w3.org/2000/svg">
+<polygon points="20,78 48,52 188,52 160,78" fill="#272d36"/>
+<polygon points="160,78 188,52 188,158 160,184" fill="#1b1f26"/>
+<rect x="20" y="78" width="140" height="106" fill="#22262e"/>
+<g fill="#14161b"><rect x="58" y="78" width="15" height="106"/><rect x="108" y="78" width="15" height="106"/><rect x="20" y="118" width="140" height="14"/></g>
+<polygon points="20,78 48,52 96,52 78,78" fill="#2e333d" opacity="0.85"/>
+<g fill="none" stroke="#3d4654" stroke-width="2"><polygon points="20,78 48,52 188,52 160,78"/><rect x="20" y="78" width="140" height="106"/><polygon points="160,78 188,52 188,158 160,184"/></g>
+<path d="M48 52 L188 52" stroke="#2f81f7" stroke-width="2" opacity="0.6"/>
+</svg>
+</div>
+<div class="auth-right">
+<div class="tabs">
+<button id="tab-signup" class="active" type="button">Create Account</button>
+<button id="tab-login" type="button">Sign In</button>
+</div>
+<form id="form-signup" autocomplete="off">
+<label for="su-user">Username</label>
+<input id="su-user" placeholder="e.g. ZyroPlayer" required minlength="3">
+<label for="su-email">Email Address</label>
+<input id="su-email" type="email" placeholder="name@email.com" required>
+<label for="su-pass">Password</label>
+<input id="su-pass" type="password" required minlength="6" placeholder="At least 6 characters">
+<label class="check"><input type="checkbox" id="su-agree" required><span>I agree to the <a href="terms.html">Terms and Conditions</a></span></label>
+<button class="btn block" type="submit">Create Your Account</button>
+<div class="formerr" id="su-err"></div>
+<p class="small muted" style="margin-top:14px;text-align:center">Already have an account? <a href="#" id="go-login">Sign In</a></p>
+</form>
+<form id="form-login" autocomplete="off" style="display:none">
+<label for="li-who">Username or Email</label>
+<input id="li-who" required>
+<label for="li-pass">Password</label>
+<input id="li-pass" type="password" required>
+<button class="btn block" type="submit" style="margin-top:16px">Sign In</button>
+<div class="formerr" id="li-err"></div>
+<p class="small muted" style="margin-top:14px;text-align:center">New to PlayZyro? <a href="#" id="go-signup">Create an account</a></p>
+</form>
+<div class="demo-box"><b>Demo accounts (preview only):</b> demo_admin / demo1234 (admin) and DemoPlayer / demo1234 (player, captain of the demo squad).</div>
+</div>
+</div>
+</div>
+<script>
+var ts=document.getElementById('tab-signup'),tl=document.getElementById('tab-login'),fs=document.getElementById('form-signup'),fl=document.getElementById('form-login');
+function show(which){var su=which==='signup';fs.style.display=su?'':'none';fl.style.display=su?'none':'';ts.classList.toggle('active',su);tl.classList.toggle('active',!su);}
+ts.addEventListener('click',function(){show('signup');});
+tl.addEventListener('click',function(){show('login');});
+document.getElementById('go-login').addEventListener('click',function(e){e.preventDefault();show('login');});
+document.getElementById('go-signup').addEventListener('click',function(e){e.preventDefault();show('signup');});
+function nextUrl(){var n=PZ.qs('next');return n?n:'dashboard.html';}
+fs.addEventListener('submit',function(e){e.preventDefault();var err=document.getElementById('su-err');
+ var r=PZ.signup(document.getElementById('su-user').value.trim(),document.getElementById('su-email').value.trim(),document.getElementById('su-pass').value);
+ if(r.error){err.textContent=r.error;err.style.display='block';return;}
+ PZ.toast('Account created. Welcome to PlayZyro.');location.href=nextUrl();});
+fl.addEventListener('submit',function(e){e.preventDefault();var err=document.getElementById('li-err');
+ var who=document.getElementById('li-who').value.trim(), pw=document.getElementById('li-pass').value;
+ var u=PZ.login(who,pw);
+ if(!u){var banned=PZ.db.users.find(function(x){return (x.username.toLowerCase()===who.toLowerCase()||x.email.toLowerCase()===who.toLowerCase())&&x.pass===pw&&x.banned;});
+ err.textContent=banned?'This account has been banned by the admin.':'Login failed. Check your username or email and password.';err.style.display='block';return;}
+ PZ.toast('Welcome back, '+u.username);location.href=(u.role==='admin')?'admin.html':nextUrl();});
+if(PZ.session()){location.href='dashboard.html';}
+</script>
+<footer class="site">
+<div class="wrap">
+<a class="logo" href="index.html">PLAY<span class="z">Z</span>YRO</a>
+<nav><a href="index.html">Home</a><a href="tournaments.html">Tournaments</a><a href="about.html">About Us</a><a href="terms.html">Terms and Conditions</a></nav>
+<p class="small muted">Social links: to be provided by the client</p>
+<p class="demo-note">Demo preview: sample accounts, tournaments and squads labelled Demo or Example are preview data only. Real tournaments, winners, posters and photos are added by the admin / provided by the client.</p>
+<p class="small muted" style="margin-top:10px">playzyro.xyz &nbsp;|&nbsp; &copy; <span id="yr"></span> PlayZyro. All rights reserved.</p>
+</div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

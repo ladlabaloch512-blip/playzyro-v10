@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - PlayZyro</title>
+<meta name="description" content=" Your PlayZyro dashboard: my squad, enrolled tournaments and room details. ">
+<link rel="icon" href=" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23151517'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='900' fill='%232f81f7' text-anchor='middle' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E ">
+<link rel="stylesheet" href="assets/css/style.css?v=2026-11-19b">
+<script>window.PZ_VARIANT = 'v10';</script>
+<script src="assets/js/app.js?v=2026-11-19b"></script>
+</head>
+<body>
+<header class="site">
+<div class="header-in">
+<a class="logo" href="index.html" style="font-size:26px">PLAY<span class="z">Z</span>YRO</a>
+<nav class="main">
+<a href="dashboard.html" class="active">Dashboard</a><a href="tournaments.html">Tournaments</a><a href="squad.html">My Squad</a><a href="about.html">About</a>
+<a href="admin.html" data-nav-admin style="display:none">Admin Panel</a>
+</nav>
+<div class="header-right"><span class="userbox"><span class="bell"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg><span class="dot"></span></span><span class="avatar" id="dh-avatar">?</span><span id="dh-name"></span><a href="#" data-logout style="color:inherit;text-decoration:underline;font-weight:400">Log out</a></span></div>
+</div>
+</header>
+<script>
+(function(){var u=window.PZ?PZ.session():null;if(u){var d=document.querySelector('[data-nav-dash]');if(d)d.style.display='';if(u.role==='admin'){var a=document.querySelector('[data-nav-admin]');if(a)a.style.display='';}}})();
+</script>
+
+<div class="wrap">
+<div class="dash-grid">
+<div>
+<h2 class="sec" style="margin-top:0">My Squad</h2>
+<div id="squad-box"></div>
+<h2 class="sec">Room ID &amp; Password</h2>
+<div id="room-box"></div>
+</div>
+<div>
+<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+<h2 class="sec" style="margin:0;flex:1">Enrolled Tournaments</h2>
+<a class="btn sm" href="squad-create.html">Create Squad</a>
+</div>
+<div class="tablewrap" style="margin-top:14px"><table>
+<thead><tr><th>Tournament</th><th>Date / Time</th><th>Round</th><th>Slots</th><th>Status</th><th>Prize</th></tr></thead>
+<tbody id="my-rows"></tbody>
+</table></div>
+<p class="small muted" style="margin-top:12px">Looking for a tournament? <a href="tournaments.html">Browse tournaments and apply</a>.</p>
+</div>
+</div>
+</div>
+<script>
+var u=PZ.requireAuth();
+if(u){
+ document.getElementById('dh-name').textContent=u.username;
+ document.getElementById('dh-avatar').textContent=u.username.charAt(0).toUpperCase();
+ var s=PZ.mySquad(u.id), sb=document.getElementById('squad-box');
+ if(!s){sb.innerHTML='<div class="panel"><p class="muted">You are not in a squad yet. Create your own squad as captain, or join one with a code.</p><p style="margin-top:14px;display:grid;gap:10px"><a class="btn block" href="squad-create.html">Create Squad</a><a class="btn block ghost" href="squad-join.html">Join with a code</a></p></div>';}
+ else{
+   var cap=PZ.user(s.captainId);
+   var members=s.memberIds.map(function(id){var m=PZ.user(id);var nm=m?m.username:'Player';var tag=(id===s.captainId)?' (Captain)':'';
+     return '<div class="member"><span class="avatar">'+PZ.esc(nm.charAt(0).toUpperCase())+'</span><span><b>'+PZ.esc(nm)+'</b><span class="muted">'+tag+'</span></span></div>';}).join('');
+   sb.innerHTML='<p style="font-size:19px;font-weight:800;margin-bottom:10px">'+PZ.esc(s.name)+'</p>'
+    +'<div class="ph grey">Team Photo Placeholder</div>'
+    +'<div style="margin-top:8px">'+members+'</div>'
+    +'<div class="codebox"><div style="flex:1"><div class="small muted" style="text-transform:uppercase;letter-spacing:.06em">Squad Join Code</div><div class="code">'+PZ.esc(s.joinCode)+'</div></div><button class="btn sm" id="copy-btn" type="button">Copy</button></div>'
+    +'<p style="margin-top:12px"><a href="squad.html">Open My Squad page</a></p>';
+   document.getElementById('copy-btn').addEventListener('click',function(){
+     function done(){PZ.toast('Join code copied: '+s.joinCode);}
+     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(s.joinCode).then(done,done);}else{done();}
+   });
+ }
+ var mine=PZ.myTournaments(u);
+ var rb=document.getElementById('room-box');
+ var copySvg='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';
+ function roomCard(t,room){
+   var starts=t?(t.dateText+(t.timeText?' - '+t.timeText:'')):'To be confirmed';
+   var head='<div class="room-top"><span class="room-tab">Live Match Room</span><span class="room-starts">Starts in: <b>'+PZ.esc(starts)+'</b></span></div>';
+   if(!t){return '<div class="roomcard">'+head+'<div class="rbody"><p class="muted">Reveals at match time. When your squad is assigned to a tournament and the admin publishes the room, the Room ID and password will show here.</p></div></div>';}
+   if(room){return '<div class="roomcard">'+head+'<div class="rbody"><p class="rname">'+PZ.esc(t.name)+'</p><div class="roomvals"><div><div class="small muted">ROOM ID:</div><div class="vrow"><span class="v">'+PZ.esc(room.roomId)+'</span><button class="copybtn" type="button" data-copy="'+PZ.esc(room.roomId)+'" aria-label="Copy room ID">'+copySvg+'</button></div></div><div><div class="small muted">PASSWORD:</div><div class="vrow"><span class="v">'+PZ.esc(room.password)+'</span><button class="copybtn" type="button" data-copy="'+PZ.esc(room.password)+'" aria-label="Copy password">'+copySvg+'</button></div></div></div></div></div>';}
+   return '<div class="roomcard">'+head+'<div class="rbody"><p class="rname">'+PZ.esc(t.name)+'</p><p class="muted">Reveals at match time.</p></div></div>';
+ }
+ if(!mine.length){rb.innerHTML=roomCard(null,null);}
+ else{rb.innerHTML=mine.map(function(t){return roomCard(t,PZ.roomFor(u,t.id));}).join('');}
+ rb.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+   var v=b.getAttribute('data-copy');
+   function done(){PZ.toast('Copied: '+v);}
+   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(done,done);}else{done();}
+ });});
+ var rows=document.getElementById('my-rows');
+ if(!mine.length){rows.innerHTML='<tr><td colspan="6" class="empty">No enrolled tournaments yet. Apply from the tournaments page.</td></tr>';}
+ else{rows.innerHTML=mine.map(function(t){
+   var app=PZ.db.applications.find(function(a){return s&&a.squadId===s.id&&a.tournamentId===t.id;});
+   var status=app?app.status:t.status;
+   return '<tr class="enrolled"><td class="name"><a href="tournament.html?id='+t.id+'">'+PZ.esc(t.name)+'</a></td><td>'+PZ.esc(t.dateText)+(t.timeText?' - '+PZ.esc(t.timeText):'')+'</td><td>To be confirmed</td><td>'+PZ.appliedSquadIds(t.id).length+'</td><td><span class="chip blue">'+PZ.esc(status)+'</span></td><td>To be confirmed</td></tr>';}).join('');}
+}
+</script>
+<footer class="site">
+<div class="wrap">
+<a class="logo" href="index.html">PLAY<span class="z">Z</span>YRO</a>
+<nav><a href="index.html">Home</a><a href="tournaments.html">Tournaments</a><a href="about.html">About Us</a><a href="terms.html">Terms and Conditions</a></nav>
+<p class="small muted">Social links: to be provided by the client</p>
+<p class="demo-note">Demo preview: sample accounts, tournaments and squads labelled Demo or Example are preview data only. Real tournaments, winners, posters and photos are added by the admin / provided by the client.</p>
+<p class="small muted" style="margin-top:10px">playzyro.xyz &nbsp;|&nbsp; &copy; <span id="yr"></span> PlayZyro. All rights reserved.</p>
+</div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

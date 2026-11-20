@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Squad - PlayZyro</title>
+<meta name="description" content=" Your PlayZyro squad. ">
+<link rel="icon" href=" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23151517'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='900' fill='%232f81f7' text-anchor='middle' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E ">
+<link rel="stylesheet" href="assets/css/style.css?v=2026-11-19b">
+<script>window.PZ_VARIANT = 'v10';</script>
+<script src="assets/js/app.js?v=2026-11-19b"></script>
+</head>
+<body>
+<header class="site">
+<div class="header-in">
+<a class="logo" href="index.html">PLAY<span class="z">Z</span>YRO</a>
+<nav class="main">
+<a href="index.html">Home</a><a href="tournaments.html">Tournaments</a><a href="about.html">About</a>
+<a href="dashboard.html" data-nav-dash style="display:none">Dashboard</a>
+<a href="admin.html" data-nav-admin style="display:none">Admin Panel</a>
+</nav>
+<div class="header-right"><span data-user-chip></span></div>
+</div>
+</header>
+<script>
+(function(){var u=window.PZ?PZ.session():null;if(u){var d=document.querySelector('[data-nav-dash]');if(d)d.style.display='';if(u.role==='admin'){var a=document.querySelector('[data-nav-admin]');if(a)a.style.display='';}}})();
+</script>
+
+<div class="wrap">
+<div class="pagehead"><h1>My Squad</h1></div>
+<div id="squad-main" style="max-width:640px"></div>
+</div>
+<script>
+var u=PZ.requireAuth();
+if(u){var s=PZ.mySquad(u.id), el=document.getElementById('squad-main');
+ if(!s){el.innerHTML='<div class="panel"><p class="muted">You are not in a squad yet.</p><p style="margin-top:14px;display:grid;gap:10px"><a class="btn block" href="squad-create.html">Create a squad</a><a class="btn block ghost" href="squad-join.html">Join with a code</a></p></div>';}
+ else{
+  var members=s.memberIds.map(function(id){var m=PZ.user(id);var nm=m?m.username:'Player';var tag=(id===s.captainId)?' (Captain)':'';
+   return '<div class="member"><span class="avatar">'+PZ.esc(nm.charAt(0).toUpperCase())+'</span><span><b>'+PZ.esc(nm)+'</b><span class="muted">'+tag+'</span></span></div>';}).join('');
+  el.innerHTML='<div class="panel"><p style="font-size:21px;font-weight:800">'+PZ.esc(s.name)+'</p>'
+   +'<div class="ph grey" style="margin-top:12px">Team Photo Placeholder</div>'
+   +'<p class="small muted" style="margin-top:12px">'+s.memberIds.length+' of 5 members. A squad needs at least 4 members to apply for a tournament.</p>'
+   +'<div style="margin-top:6px">'+members+'</div>'
+   +'<div class="codebox"><div style="flex:1"><div class="small muted" style="text-transform:uppercase;letter-spacing:.06em">Squad Join Code</div><div class="code">'+PZ.esc(s.joinCode)+'</div></div><button class="btn sm" id="copy-btn" type="button">Copy</button></div>'
+   +'<p style="margin-top:14px"><a class="btn" href="tournaments.html">Apply for a tournament</a></p></div>';
+  document.getElementById('copy-btn').addEventListener('click',function(){if(navigator.clipboard){navigator.clipboard.writeText(s.joinCode);}PZ.toast('Join code copied: '+s.joinCode);});
+ }}
+</script>
+<footer class="site">
+<div class="wrap">
+<a class="logo" href="index.html">PLAY<span class="z">Z</span>YRO</a>
+<nav><a href="index.html">Home</a><a href="tournaments.html">Tournaments</a><a href="about.html">About Us</a><a href="terms.html">Terms and Conditions</a></nav>
+<p class="small muted">Social links: to be provided by the client</p>
+<p class="demo-note">Demo preview: sample accounts, tournaments and squads labelled Demo or Example are preview data only. Real tournaments, winners, posters and photos are added by the admin / provided by the client.</p>
+<p class="small muted" style="margin-top:10px">playzyro.xyz &nbsp;|&nbsp; &copy; <span id="yr"></span> PlayZyro. All rights reserved.</p>
+</div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
