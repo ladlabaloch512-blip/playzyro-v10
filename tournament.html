@@ -6,9 +6,9 @@
 <title>Tournament - PlayZyro</title>
 <meta name="description" content=" PlayZyro tournament details and apply. ">
 <link rel="icon" href=" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23151517'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='900' fill='%232f81f7' text-anchor='middle' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E ">
-<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20a">
+<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20b">
 <script>window.PZ_VARIANT = 'v10';</script>
-<script src="assets/js/app.js?v=2026-11-20a"></script>
+<script src="assets/js/app.js?v=2026-11-20b"></script>
 </head>
 <body>
 <header class="site">
@@ -46,7 +46,7 @@
 </div>
 <h2 class="sec">About This Tournament</h2>
 <div class="panel">
-<p class="muted" id="t-about">This tournament is run by the PlayZyro admin for the PlayZyro PUBG community. The status, date, mode and prize shown in the details above are the current details; anything marked To be confirmed is still being finalised.</p>
+<p class="muted" id="t-about">This tournament is run by the PlayZyro admin for the PlayZyro PUBG community. The status, date, mode and prize shown in the details above are the current details; anything marked To be confirmed is still being finalised. Demo or Example entries are preview data.</p>
 </div>
 <h2 class="sec">How to Apply</h2>
 <div class="steps">
@@ -57,7 +57,7 @@
 <h2 class="sec">Rules</h2>
 <div class="panel"><ul class="ticks">
 <li>A squad holds 4 to 5 players.</li>
-<li>Each player has one active squad in this stage.</li>
+<li>Each player has one active squad.</li>
 <li>Applications are reviewed by the admin, who selects and assigns squads.</li>
 <li>The Room ID and password are published at match time, to assigned squads only.</li>
 <li>Fair play and respectful conduct, as set out in the <a href="terms.html">Terms and Conditions</a>.</li>
@@ -70,7 +70,7 @@ if(!t){document.getElementById('t-name').textContent='Tournament not found';box.
 else{
  document.title=t.name+' - PlayZyro';
  document.getElementById('t-name').textContent=t.name;
- if(t.name.indexOf('(Example)')>-1){document.getElementById('t-about').textContent='This is a demo tournament (Example) shown in the preview, so its details are sample details only. Real tournament details are set by the PlayZyro admin; anything marked To be confirmed is still being finalised.';}
+ if(t.name.indexOf('(Example)')>-1){document.getElementById('t-about').textContent='This is a demo tournament (Example) shown in the preview, so its details are sample details only. Real tournament details are set by the PlayZyro admin; anything marked To be confirmed is still being finalised. Demo or Example entries are preview data.';}
  var applied=PZ.appliedSquadIds(t.id).length;
  document.getElementById('t-meta').innerHTML='<table style="min-width:0"><tbody>'
  +'<tr><td class="muted">Status</td><td><span class="chip blue">'+PZ.esc(t.status)+'</span></td></tr>'
