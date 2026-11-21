@@ -6,9 +6,9 @@
 <title>Tournaments & Schedule - PlayZyro</title>
 <meta name="description" content=" PlayZyro tournaments and schedule. Sign up, build your squad, and apply for tournaments. ">
 <link rel="icon" href=" data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23151517'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='900' fill='%232f81f7' text-anchor='middle' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E ">
-<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20m">
+<link rel="stylesheet" href="assets/css/style.css?v=2026-11-20n">
 <script>window.PZ_VARIANT = 'v10';</script>
-<script src="assets/js/app.js?v=2026-11-20m"></script>
+<script src="assets/js/app.js?v=2026-11-20n"></script>
 </head>
 <body>
 <header class="site">
@@ -68,8 +68,8 @@ function actionFor(t){var label=t.status==='Registration Open'?'Register':(t.sta
 function render(){
  var q=document.getElementById('q').value.toLowerCase(), st=document.getElementById('status').value, md=modeSel.value;
  var list=PZ.db.tournaments.filter(function(t){return (!q||t.name.toLowerCase().indexOf(q)>-1)&&(!st||t.status===st)&&(!md||t.mode===md);});
- document.getElementById('cards').innerHTML=list.length?list.map(function(t){
-   return '<div class="card"><div class="ph gridbg">Poster Placeholder</div><div class="body"><h3>'+PZ.esc(t.name)+'</h3><p class="muted small">'+PZ.esc(t.dateText)+(t.timeText?' - '+PZ.esc(t.timeText):'')+' | '+PZ.esc(t.mode)+'</p><div class="cardmeta"><span class="chip prize">Prize: To be confirmed</span><a class="btn sm ghost" href="tournament.html?id='+t.id+'">View Event</a></div></div></div>';
+ document.getElementById('cards').innerHTML=list.length?list.map(function(t,i){
+   return '<div class="card"><svg class="pz-corner" aria-hidden="true"><use href="assets/img/pz-icons.svg#pz-crosshair"/></svg><div class="ph gridbg has-art"><img class="pz-art" src="'+PZ.posterFor(i)+'" alt=""><span class="ph-chip">Tournament Poster</span></div><div class="body"><h3>'+PZ.esc(t.name)+'</h3><p class="muted small">'+PZ.esc(t.dateText)+(t.timeText?' - '+PZ.esc(t.timeText):'')+' | '+PZ.esc(t.mode)+'</p><div class="cardmeta"><span class="chip prize">Prize: To be confirmed</span><a class="btn sm ghost" href="tournament.html?id='+t.id+'">View Event</a></div></div></div>';
  }).join(''):'<div class="panel muted">No tournaments match your search.</div>';
  document.getElementById('rows').innerHTML=list.length?list.map(function(t){
    return '<tr><td data-label="Date / Time">'+PZ.esc(t.dateText)+(t.timeText?' - '+PZ.esc(t.timeText):'')+'</td><td class="name" data-label="Tournament">'+PZ.esc(t.name)+'</td><td data-label="Mode">'+PZ.esc(t.mode)+'</td><td data-label="Teams">'+PZ.appliedSquadIds(t.id).length+'</td><td data-label="Prize Pool">To be confirmed</td><td data-label="Status">'+chip(t.status)+'</td><td data-label="Action">'+actionFor(t)+'</td></tr>';
